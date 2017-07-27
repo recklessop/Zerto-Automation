@@ -77,33 +77,34 @@ function dynUpdateNodes
                 
             }
         }
-
+     }
     # Print out the updated FQDN IP address mapping table
     Write-Host "`nFQDNs will be updated as follows:"
     $DynNodes | Format-Table -Auto
 
     # Update Records that Need updating (Based on Record_id Present)
-        foreach ($node in $DynNodes)
+    foreach ($node in $DynNodes)
+    {
+        if ($node.record_id -ne "")
         {
-            if ($node.record_id -ne "")
-            {
-                Write-Host $node.fqdn - "Run Update REST API!!!!"
-                $body = '{"rdata":{"address":"' + $node.NewIp + '"}}'
-                $nodefqdn = $node.fqdn
-                $nodeid = $node.record_id
-                Invoke-RestMethod -Uri "https://api.dynect.net/REST/ARecord/$zone/$nodefqdn/$nodeid/" -Method PUT -ContentType "application/json" -Headers $headers -B $body | Output-Null
-            }
-                
+            Write-Host $node.fqdn - "Run Update REST API!!!!"
+            $body = '{"rdata":{"address":"' + $node.NewIp + '"}}'
+            $nodefqdn = $node.fqdn
+            $nodeid = $node.record_id
+            Invoke-RestMethod -Uri "https://api.dynect.net/REST/ARecord/$zone/$nodefqdn/$nodeid/" -Method PUT -ContentType "application/json" -Headers $headers -B $body
         }
+                
     }
+ 
 
     #Publish Updates
-    Invoke-RestMethod -Uri "https://api.dynect.net/REST/Zone/$zone/" -Method PUT -ContentType "application/json" -Headers $headers -Body '{"publish":true}' | Output-Null
+    Invoke-RestMethod -Uri "https://api.dynect.net/REST/Zone/$zone/" -Method PUT -ContentType "application/json" -Headers $headers -Body '{"publish":true}' 
 
     #Remove the session token/logout and suppress any output    
-    Invoke-RestMethod -Uri "https://api.dynect.net/REST/Session" -Method Delete -ContentType "application/json" -Headers $headers  | Output-Null
+    Invoke-RestMethod -Uri "https://api.dynect.net/REST/Session" -Method Delete -ContentType "application/json" -Headers $headers 
  
      }
+
  
      catch
      {

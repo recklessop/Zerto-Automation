@@ -38,7 +38,7 @@ $DynNodes =
 #End of user changeable variables#
 ##################################
  
-function dynListNodes
+function dynUpdateNodes
 {
      param([string]$zone)
  
@@ -110,8 +110,12 @@ function dynListNodes
      }
 }
 
-$Operation = $env:ZertoOperation
-$Operation = "FailoverBeforeCommit"
+$Operation = $env:ZertoOperation # this line will get Operation from Zerto
+
+#The next line is for testing only, remove te line before production use
+$Operation = "TESTMODE"
+# Remove Above Line before using script in production
+
 $VPG = $env:ZertoVPGName
 $time = Get-Date
  
@@ -123,11 +127,15 @@ if ($Operation -eq "Test") {
 if ($Operation -eq "FailoverBeforeCommit") {
     "$time Failover before commit was performed. VPG: $VPG" >> "C:\DR_IPChange_Log.txt"
     #Run the function
-    dynListNodes $zone
+    dynUpdateNodes $zone
 }
  
 if ($Operation -eq "MoveBeforeCommit"){
     "$time Move before commit was performed. VPG: $VPG" >> "C:\DR_IPChange_Log.txt"
     #Run the function
-    dynListNodes $zone
+    dynUpdateNodes $zone
+}
+if ($Operation -eq "TEST"){
+    Write-Host "TEST TEST TEST TEST TEST TEST"
+    dynUpdateNodes $zone
 }

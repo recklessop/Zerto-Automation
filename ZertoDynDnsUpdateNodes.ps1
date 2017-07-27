@@ -7,8 +7,9 @@
 # Original script forked from:                                                      #
 # http://www.jjclements.co.uk/2015/12/04/powershell-script-for-dyn-dynect-rest-api/ #
 #                                                                                   #
-#This script/function lists a node's DNS A record from Dynect                       #
-#for the predefined zone using the Dynect REST API                                  #
+# This script/function updates node DNS A records from Dynect                       #
+# for the predefined zone and nodes using the Dynect REST API                       #
+# It is meant to be used as a "Post-Failover" Script with ZVR.                      #
 #####################################################################################
 
 ####################################

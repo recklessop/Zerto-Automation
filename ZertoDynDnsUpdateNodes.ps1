@@ -135,7 +135,7 @@ if ($Operation -eq "MoveBeforeCommit"){
     #Run the function
     dynUpdateNodes $zone
 }
-if ($Operation -eq "TEST"){
+if ($Operation -eq "TESTMODE"){
     Write-Host "TEST TEST TEST TEST TEST TEST"
     dynUpdateNodes $zone
 }

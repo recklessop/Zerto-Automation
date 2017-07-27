@@ -114,7 +114,7 @@ function dynUpdateNodes
 $Operation = $env:ZertoOperation # this line will get Operation from Zerto
 
 #The next line is for testing only, remove te line before production use
-$Operation = "TESTMODE"
+#$Operation = "TESTMODE"
 # Remove Above Line before using script in production
 
 $VPG = $env:ZertoVPGName

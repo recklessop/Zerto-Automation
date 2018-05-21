@@ -257,7 +257,7 @@ $error[0] | Format-List -Force
 # Confirming VPG settings from API
 ################################################
 $ConfirmVPGSettingURL = $BaseURL+"vpgSettings/"+"$VPGSettingsIdentifier"
-$ConfirmVPGSettingCMD = Invoke-RestMethod -Uri $ConfirmVPGSettingURL -Headers $zertosessionHeader -ContentType $TypeJSON
+$ConfirmVPGSettingCMD = Invoke-RestMethod -Method Post -Uri $ConfirmVPGSettingURL -Headers $zertosessionHeader -ContentType $TypeJSON
 
 ################################################
 # Committing the VPG settings to be created
